@@ -1,10 +1,15 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Translation_Question
+
+
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'base.html', {})
+    latest_translation_question_list = Translation_Question.objects.order_by('pub_date')[:5]
+    output = ', '.join([tq.translation_question_text for tq in latest_translation_question_list])
+    return HttpResponse(output)
 
 def detail(request, Translation_Question_id):
     response = "You are 👀 at where the user is going to enter their ❓ #️⃣ %s before it is translated from 💂🏻‍♀️ English 💂🏻‍♀️ ➡️ 🐽Pig Latin🐽"
