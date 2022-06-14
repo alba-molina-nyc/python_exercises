@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import loader
 from .models import Translation_Question
 
 
@@ -8,8 +8,12 @@ from .models import Translation_Question
 
 def home(request):
     latest_translation_question_list = Translation_Question.objects.order_by('pub_date')[:5]
-    output = ', '.join([tq.translation_question_text for tq in latest_translation_question_list])
-    return HttpResponse(output)
+    template = loader.get_template('home.html')
+    context = {
+        'latest_translation_question_list': latest_translation_question_list,
+    }
+    
+    return HttpResponse(template.render(context, request))
 
 def detail(request, Translation_Question_id):
     response = "You are 👀 at where the user is going to enter their ❓ #️⃣ %s before it is translated from 💂🏻‍♀️ English 💂🏻‍♀️ ➡️ 🐽Pig Latin🐽"
