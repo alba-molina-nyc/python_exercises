@@ -1,0 +1,11 @@
+<h1>Enter a word[s] here to be translated</h1>
+<!-- url 'enter_word' translation_question.id -->
+<form action=" "method="post">
+    {% csrf_token %}
+    <form action="/your-name/" method="post">
+        <label for="your_word">Your word: </label>
+        <input id="your_word" type="text" name="your_word" value="{{ translation_question.translation_question_text }}">
+        <input type="submit" value="OK">
+    </form>
+    </form>
+   
